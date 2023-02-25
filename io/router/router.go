@@ -23,6 +23,7 @@ import (
 	"gioui.org/internal/ops"
 	"gioui.org/io/clipboard"
 	"gioui.org/io/event"
+	"gioui.org/io/externalDragDrop"
 	"gioui.org/io/key"
 	"gioui.org/io/pointer"
 	"gioui.org/io/profile"
@@ -182,6 +183,8 @@ func (q *Router) Queue(events ...event.Event) bool {
 			}
 		case clipboard.Event:
 			q.cqueue.Push(e, &q.handlers)
+		case externalDragDrop.Event:
+			q.handlers.Add(nil, e)
 		}
 	}
 	return q.handlers.HadEvents()

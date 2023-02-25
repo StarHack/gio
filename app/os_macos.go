@@ -15,6 +15,7 @@ import (
 
 	"gioui.org/internal/f32"
 	"gioui.org/io/clipboard"
+	"gioui.org/io/externalDragDrop"
 	"gioui.org/io/key"
 	"gioui.org/io/pointer"
 	"gioui.org/io/system"
@@ -555,6 +556,13 @@ func gio_onMouse(view, evt C.CFTypeRef, cdir C.int, cbtn C.NSInteger, x, y, dx, 
 		Scroll:    f32.Point{X: dxf, Y: dyf},
 		Modifiers: convertMods(mods),
 	})
+}
+
+//export gio_onExternalDrop
+func gio_onExternalDrop(view C.CFTypeRef, pbrd *C.char) {
+	fileUrl := C.GoString(pbrd)
+	w := mustView(view)
+	w.w.Event(externalDragDrop.Event{Text: fileUrl})
 }
 
 //export gio_onDraw
