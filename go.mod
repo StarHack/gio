@@ -1,4 +1,4 @@
-module gioui.org
+module "github.com/StarHack/gio.darwin-external-dragndrop"
 
 go 1.18
 
